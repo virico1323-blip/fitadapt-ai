@@ -1,0 +1,21 @@
+{
+  "overview": "ML-Based Personalized Workout Recommendation System that generates adaptive weekly workout plans based on user profiles, tracks progress visually, and predicts goal achievement — all with a professional dark-themed interface.",
+  "features": [
+    "Personalized weekly workout plan generation based on age, gender, height, weight, fitness goal, and experience level",
+    "Adaptive learning — adjusts next workout intensity based on Easy/Medium/Hard feedback",
+    "Visual progress tracking with weight trend charts and workout completion history",
+    "Goal prediction estimating weeks to reach your fitness target",
+    "Internet Identity login for persistent data across sessions",
+    "5-page professional dark-themed UI with smooth animations"
+  ],
+  "category": "productivity",
+  "tags": [
+    "fitness",
+    "workout",
+    "machine-learning",
+    "personalization",
+    "progress-tracking",
+    "health"
+  ],
+  "last_updated": "2026-04-16T11:50:30.915Z"
+}

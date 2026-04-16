@@ -1,0 +1,122 @@
+type WeightEntry = 
+ record {
+   entryId: nat;
+   loggedAt: Timestamp;
+   userId: UserId;
+   weightKg: float64;
+ };
+type WeeklyWorkoutPlan = 
+ record {
+   days: vec DayPlan;
+   generatedAt: Timestamp;
+   intensityModifierAtGeneration: int;
+   planId: nat;
+   userId: UserId;
+   weekNumber: nat;
+ };
+type UserStats = 
+ record {
+   averageDifficultyScore: float64;
+   currentStreak: nat;
+   totalWorkoutsCompleted: nat;
+ };
+type UserProfilePublic = 
+ record {
+   age: nat;
+   createdAt: Timestamp;
+   experienceLevel: ExperienceLevel;
+   fitnessGoal: FitnessGoal;
+   gender: Gender;
+   heightCm: float64;
+   intensityModifier: int;
+   name: text;
+   targetWeightKg: opt float64;
+   userId: UserId;
+   weightKg: float64;
+ };
+type UserProfileInput = 
+ record {
+   age: nat;
+   experienceLevel: ExperienceLevel;
+   fitnessGoal: FitnessGoal;
+   gender: Gender;
+   heightCm: float64;
+   name: text;
+   targetWeightKg: opt float64;
+   weightKg: float64;
+ };
+type UserId = principal;
+type Timestamp = int;
+type GoalPrediction = 
+ record {
+   currentWeightKg: float64;
+   estimatedWeeksRemaining: opt float64;
+   progressPercent: float64;
+   targetWeightKg: opt float64;
+   weeklyRateKg: float64;
+ };
+type Gender = 
+ variant {
+   female;
+   male;
+   other;
+ };
+type FitnessGoal = 
+ variant {
+   endurance;
+   flexibility;
+   maintenance;
+   muscleGain;
+   weightLoss;
+ };
+type ExperienceLevel = 
+ variant {
+   advanced;
+   beginner;
+   intermediate;
+ };
+type Exercise = 
+ record {
+   intensityDescriptor: text;
+   muscleGroup: text;
+   name: text;
+   reps: nat;
+   restSeconds: nat;
+   sets: nat;
+ };
+type DifficultyFeedback = 
+ variant {
+   easy;
+   hard;
+   medium;
+ };
+type DayPlan = 
+ record {
+   dayOfWeek: text;
+   exercises: vec Exercise;
+   isRestDay: bool;
+ };
+type CompletedWorkout = 
+ record {
+   completedAt: Timestamp;
+   completedId: nat;
+   dayOfWeek: text;
+   difficultyFeedback: DifficultyFeedback;
+   exercises: vec Exercise;
+   planId: nat;
+   userId: UserId;
+ };
+service : {
+  generateWorkoutPlan: () -> (WeeklyWorkoutPlan);
+  getCallerUserProfile: () -> (opt UserProfilePublic) query;
+  getCompletedWorkouts: () -> (vec CompletedWorkout) query;
+  getGoalPrediction: () -> (GoalPrediction) query;
+  getLatestWorkoutPlan: () -> (opt WeeklyWorkoutPlan) query;
+  getUserProfile: (user: principal) -> (opt UserProfilePublic) query;
+  getWeightHistory: () -> (vec WeightEntry) query;
+  getWorkoutStats: () -> (UserStats) query;
+  logWeight: (weightKg: float64) -> (WeightEntry);
+  saveCallerUserProfile: (input: UserProfileInput) -> (UserProfilePublic);
+  submitWorkoutFeedback: (planId: nat, dayOfWeek: text, exercises:
+   vec Exercise, feedback: DifficultyFeedback) -> (CompletedWorkout);
+}

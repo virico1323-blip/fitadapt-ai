@@ -1,0 +1,93 @@
+// Version: 1.0.0
+type CompletedWorkout__76217383 =
+  {
+    completedAt : Timestamp__301639476;
+    completedId : Nat;
+    dayOfWeek : Text;
+    difficultyFeedback : DifficultyFeedback__281958810;
+    exercises : [Exercise__250027490];
+    planId : Nat;
+    userId : UserId__158757552
+  };
+type Data__791452850<K, V> =
+  {var count : Nat__490723111; kvs : [var ?(K, V)]};
+type DayPlan__226567179 =
+  {dayOfWeek : Text; exercises : [Exercise__250027490]; isRestDay : Bool};
+type DifficultyFeedback__281958810 = {#easy; #hard; #medium};
+type Exercise__250027490 =
+  {
+    intensityDescriptor : Text;
+    muscleGroup : Text;
+    name : Text;
+    reps : Nat;
+    restSeconds : Nat;
+    sets : Nat
+  };
+type ExperienceLevel__1028171813 = {#advanced; #beginner; #intermediate};
+type FitnessGoal__813231237 =
+  {#endurance; #flexibility; #maintenance; #muscleGain; #weightLoss};
+type Gender__94681853 = {#female; #male; #other};
+type Internal__8484328<K, V> =
+  {children : [var ?Node__46230540<K, V>]; data : Data__791452850<K, V>};
+type Leaf__809889148<K, V> = {data : Data__791452850<K, V>};
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type Node__46230540<K, V> =
+  {#internal : Internal__8484328<K, V>; #leaf : Leaf__809889148<K, V>};
+type Timestamp__301639476 = Int;
+type UserId__158757552 = Principal;
+type UserProfile__446616884 =
+  {
+    age : Nat;
+    createdAt : Timestamp__301639476;
+    experienceLevel : ExperienceLevel__1028171813;
+    fitnessGoal : FitnessGoal__813231237;
+    gender : Gender__94681853;
+    heightCm : Float;
+    var intensityModifier : Int;
+    name : Text;
+    targetWeightKg : ?Float;
+    userId : UserId__158757552;
+    weightKg : Float
+  };
+type WeeklyWorkoutPlan__831185788 =
+  {
+    days : [DayPlan__226567179];
+    generatedAt : Timestamp__301639476;
+    intensityModifierAtGeneration : Int;
+    planId : Nat;
+    userId : UserId__158757552;
+    weekNumber : Nat
+  };
+type WeightEntry__396071102 =
+  {
+    entryId : Nat;
+    loggedAt : Timestamp__301639476;
+    userId : UserId__158757552;
+    weightKg : Float
+  };
+actor {
+  stable completedWorkouts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?CompletedWorkout__76217383]];
+      var elementIndex : Nat__490723111
+    };
+  stable userProfiles :
+    {
+      var root : Node__46230540<Principal, UserProfile__446616884>;
+      var size : Nat__490723111
+    };
+  stable weeklyPlans :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?WeeklyWorkoutPlan__831185788]];
+      var elementIndex : Nat__490723111
+    };
+  stable weightLog :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?WeightEntry__396071102]];
+      var elementIndex : Nat__490723111
+    }
+};
